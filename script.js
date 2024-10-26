@@ -52,22 +52,29 @@ function deleteLast() {
     updateDisplay();
 }
 
-// Function to evaluate the expression using Math.js with conversion from degrees to radians for trigonometric functions
+// Function to evaluate the expression using Math.js
 function calculate() {
     try {
-        // Convert degrees to radians for trigonometric functions
-        let convertedExpression = expression
-            .replace(/sin\(([^)]+)\)/g, function(_, angle) { return `sin((${angle}) * math.pi / 180)`; })
-            .replace(/cos\(([^)]+)\)/g, function(_, angle) { return `cos((${angle}) * math.pi / 180)`; })
-            .replace(/tan\(([^)]+)\)/g, function(_, angle) { return `tan((${angle}) * math.pi / 180)`; });
-
-        // Evaluate the converted expression
-        expression = math.evaluate(convertedExpression).toString();
+        // Log expression before conversion
+        console.log("Original Expression:", expression);
+        
+        // Replace ^ with ** for power evaluation
+        let powerExpression = expression.replace(/\^/g, '**');
+        
+        // Log converted expression
+        console.log("Converted Expression:", powerExpression);
+        
+        // Evaluate with Math.js
+        expression = math.evaluate(powerExpression).toString();
+        
+        // Log the result after evaluation
+        console.log("Evaluation Result:", expression);
+        
         updateDisplay();
         resultShown = true; // Set flag indicating result is shown
     } catch (e) {
-        // Handle errors in expression
         expression = "Error";
+        console.error("Calculation Error:", e);
         updateDisplay();
         resultShown = true;
     }
@@ -125,7 +132,6 @@ function plotGraph() {
 
     } catch (error) {
         console.error("Error plotting graph:", error);
-        // Optionally, display a message to the user or clear the graph
         Plotly.purge('graph');  // Clear the graph on error
     }
 }
