@@ -1,5 +1,6 @@
 let expression = "";
 let resultShown = false;
+let functionCount = 1; // Tracks the number of functions added
 
 // Switch between modes
 document.getElementById("normal-btn").addEventListener("click", () => {
@@ -40,8 +41,6 @@ function clearDisplay() {
 function deleteLast() {
     if (expression.endsWith("sin(")) {
         expression = expression.slice(0, -4);
-    } else if (expression.endsWith("cos(")) {
-        expression = expression.slice(0, -4);
     } else if (expression.endsWith("tan(")) {
         expression = expression.slice(0, -4);
     } else if (expression.endsWith("sqrt(")) {
@@ -55,26 +54,11 @@ function deleteLast() {
 // Function to evaluate the expression using Math.js
 function calculate() {
     try {
-        // Log expression before conversion
-        console.log("Original Expression:", expression);
-        
-        // Replace ^ with ** for power evaluation
-        let powerExpression = expression.replace(/\^/g, '**');
-        
-        // Log converted expression
-        console.log("Converted Expression:", powerExpression);
-        
-        // Evaluate with Math.js
-        expression = math.evaluate(powerExpression).toString();
-        
-        // Log the result after evaluation
-        console.log("Evaluation Result:", expression);
-        
+        expression = math.evaluate(expression).toString();
         updateDisplay();
         resultShown = true; // Set flag indicating result is shown
     } catch (e) {
         expression = "Error";
-        console.error("Calculation Error:", e);
         updateDisplay();
         resultShown = true;
     }
@@ -92,46 +76,61 @@ function updateDisplay() {
     }
 }
 
-// Function to handle graph plotting
+// Add new function
+function addFunction() {
+    const functionsContainer = document.getElementById('functions-container');
+    const newFunctionInput = document.createElement('input');
+    newFunctionInput.type = 'text';
+    newFunctionInput.id = `function-input-${functionCount}`;
+    newFunctionInput.placeholder = `Enter function g(x), h(x), etc.`;
+    newFunctionInput.oninput = () => plotGraph();
+    functionsContainer.appendChild(newFunctionInput);
+    functionCount++;
+}
+
+// Remove last function
+function removeFunction() {
+    if (functionCount > 1) {
+        functionCount--;
+        const functionsContainer = document.getElementById('functions-container');
+        const lastFunctionInput = document.getElementById(`function-input-${functionCount}`);
+        functionsContainer.removeChild(lastFunctionInput);
+        plotGraph(); // Re-plot graph without the removed function
+    }
+}
+
+// Function to handle button presses
+function press(key) {
+    if (resultShown) {
+        expression = "";
+        resultShown = false;
+    }
+    expression += key; // Append the key (like ^ for power) to the expression
+    updateDisplay();
+}
+
+
+// Function to handle graph plotting for multiple functions
 function plotGraph() {
-    let input = document.getElementById("function-input").value.trim();
-    
-    // Check if the input is empty
-    if (input === "") {
-        Plotly.purge('graph');  // Clear the graph if input is empty
-        return;
+    const traces = [];
+    for (let i = 0; i < functionCount; i++) {
+        const input = document.getElementById(`function-input-${i}`).value;
+        if (input) {
+            try {
+                const expr = math.compile(input);
+                const xValues = math.range(-10, 10, 0.1).toArray();
+                const yValues = xValues.map(x => expr.evaluate({ x }));
+                traces.push({
+                    x: xValues,
+                    y: yValues,
+                    mode: 'lines',
+                    type: 'scatter',
+                    name: `f${i + 1}(x)`
+                });
+            } catch (error) {
+                console.error("Error plotting graph:", error);
+            }
+        }
     }
-
-    try {
-        // Parse the function input and create a range of x values
-        let expr = math.compile(input);
-        let xValues = math.range(-10, 10, 0.1).toArray();  // Range for x-axis
-        
-        // Evaluate y values based on the input function
-        let yValues = xValues.map(function (x) {
-            return expr.evaluate({ x: x });
-        });
-
-        // Define the trace for Plotly
-        let trace = {
-            x: xValues,
-            y: yValues,
-            mode: 'lines',
-            type: 'scatter'
-        };
-
-        // Layout for the graph
-        let layout = {
-            title: `Graph of f(x) = ${input}`,
-            xaxis: { title: 'x' },
-            yaxis: { title: 'f(x)' }
-        };
-
-        // Plot the graph with updated values
-        Plotly.newPlot('graph', [trace], layout);
-
-    } catch (error) {
-        console.error("Error plotting graph:", error);
-        Plotly.purge('graph');  // Clear the graph on error
-    }
+    Plotly.newPlot('graph', traces, { title: 'Graph of Functions', xaxis: { title: 'x' }, yaxis: { title: 'y' } });
 }
