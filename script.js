@@ -1,8 +1,8 @@
 let expression = "";
 let resultShown = false;
-let functionCount = 1; // Tracks the number of functions added
+let functionCount = 1; 
 
-// Switch between modes
+
 document.getElementById("normal-btn").addEventListener("click", () => {
     document.getElementById("normal-calculator").style.display = "block";
     document.getElementById("scientific-calculator").style.display = "none";
@@ -21,7 +21,7 @@ document.getElementById("graphic-btn").addEventListener("click", () => {
     document.getElementById("graphic-calculator").style.display = "block";
 });
 
-// Function to handle button presses
+
 function press(key) {
     if (resultShown) {
         expression = "";
@@ -31,13 +31,13 @@ function press(key) {
     updateDisplay();
 }
 
-// Function to clear the display
+
 function clearDisplay() {
     expression = "";
     updateDisplay();
 }
 
-// Function to delete the last character or a full function (e.g., sin(), tan(), sqrt())
+
 function deleteLast() {
     if (expression.endsWith("sin(")) {
         expression = expression.slice(0, -4);
@@ -51,12 +51,12 @@ function deleteLast() {
     updateDisplay();
 }
 
-// Function to evaluate the expression using Math.js
+
 function calculate() {
     try {
         expression = math.evaluate(expression).toString();
         updateDisplay();
-        resultShown = true; // Set flag indicating result is shown
+        resultShown = true; 
     } catch (e) {
         expression = "Error";
         updateDisplay();
@@ -64,7 +64,7 @@ function calculate() {
     }
 }
 
-// Function to update the display
+
 function updateDisplay() {
     const normalDisplay = document.getElementById("normal-display");
     const scientificDisplay = document.getElementById("scientific-display");
@@ -76,7 +76,7 @@ function updateDisplay() {
     }
 }
 
-// Add new function
+
 function addFunction() {
     const functionsContainer = document.getElementById('functions-container');
     const newFunctionInput = document.createElement('input');
@@ -88,29 +88,29 @@ function addFunction() {
     functionCount++;
 }
 
-// Remove last function
+
 function removeFunction() {
     if (functionCount > 1) {
         functionCount--;
         const functionsContainer = document.getElementById('functions-container');
         const lastFunctionInput = document.getElementById(`function-input-${functionCount}`);
         functionsContainer.removeChild(lastFunctionInput);
-        plotGraph(); // Re-plot graph without the removed function
+        plotGraph(); 
     }
 }
 
-// Function to handle button presses
+// 
 function press(key) {
     if (resultShown) {
         expression = "";
         resultShown = false;
     }
-    expression += key; // Append the key (like ^ for power) to the expression
+    expression += key; 
     updateDisplay();
 }
 
 
-// Function to handle graph plotting for multiple functions
+
 function plotGraph() {
     const traces = [];
     for (let i = 0; i < functionCount; i++) {
