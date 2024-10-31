@@ -6,16 +6,13 @@
     <title>Matholator! 👍</title>
     <link rel="icon" type="image/x-icon" href="CALCULATORFAVICON.jpg">
     <link rel="stylesheet" href="styles.css">
-    <!-- Include Math.js for mathematical operations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.0.0/math.min.js"></script>
-    <!-- Include Plotly.js for graphing functionality -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
     <div class="container">
         <h1>Matholator</h1>
         <h2>Multi-Mode Calculator</h2>
-        <!-- Version label -->
         <div class="version-label">Version Beta 3.0.2</div>
 
         <div class="mode-switcher">
@@ -24,7 +21,6 @@
             <button id="graphic-btn" class="mode-btn">Graphic</button>
         </div>
 
-        <!-- Normal Calculator -->
         <div id="normal-calculator" class="calculator">
             <input type="text" id="normal-display" readonly placeholder="0">
             <div class="buttons">
@@ -49,7 +45,7 @@
             </div>
         </div>
 
-  <!-- Scientific Calculator -->
+
 <div id="scientific-calculator" class="calculator" style="display: none;">
     <input type="text" id="scientific-display" readonly placeholder="0">
     <div class="buttons">
@@ -82,7 +78,7 @@
 
         </div>
 
-        <!-- Graphic Calculator -->
+    
         <div id="graphic-calculator" class="calculator" style="display: none;">
             <div id="function-controls">
                 <button onclick="addFunction()">+</button>
