@@ -1,5 +1,8 @@
 Welcome to Matholator! A simple multi-mode calculator that makes Math EASY! 
 
+UPDATE NOTES VERSION: BETA 3.0.2
+Updated Favicon
+
 UPDATE NOTES VERSION: BETA 3.0
 Bug Fixes
 Fixed power
