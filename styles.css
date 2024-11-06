@@ -1,0 +1,264 @@
+/* General Body Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #333;
+    overflow: hidden;
+}
+
+/* Main Container */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Title Styling */
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Version Label */
+.version-label {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+}
+
+/* Mode Selection Buttons */
+.mode-switcher {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.mode-btn {
+    flex: 1;
+    margin: 0 5px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #ddd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.mode-btn:hover {
+    background-color: #bbb;
+}
+
+/* Calculator Display */
+.calculator input[type="text"] {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ecf0f1;
+    font-size: 22px;
+    text-align: right;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Grid Layout */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+}
+
+/* Button Styling */
+button {
+    padding: 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: #bdc3c7;
+    color: #2c3e50;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #7f8c8d;
+}
+
+button:active {
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Theme Button */
+#theme-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#theme-button:hover {
+    background-color: #2980b9;
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Function Controls for Graphic Calculator */
+#function-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#function-controls button {
+    padding: 8px;
+    font-size: 18px;
+    background-color: #2ecc71;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#function-controls button:hover {
+    background-color: #27ae60;
+}
+
+/* Functions Container */
+#functions-container {
+    max-height: 200px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding-right: 5px;
+}
+
+/* Graph Area */
+#graph {
+    width: 100%;
+    height: 400px;
+}
+
+/* Scrollbar styling for functions container */
+#functions-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#functions-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+/* Theme: Dark */
+body.dark-theme {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-theme .container {
+    background-color: #333;
+}
+
+body.dark-theme button {
+    background-color: #444;
+    color: #fff;
+}
+
+body.dark-theme #theme-button {
+    background-color: #666;
+}
+
+/* Theme: Light */
+body.light-theme {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Theme: Space Blue */
+body.space-blue-theme {
+    background-color: #1a237e;
+    color: #1f0664;
+}
+
+/* Theme: Red */
+body.red-theme {
+    background-color: #b71c1c;
+    color: #440404;
+}
+
+/* Theme: Rose Pink */
+body.rose-pink-theme {
+    background-color: #f8bbd0;
+    color: #880e4f;
+}
+
+/* Theme: Emerald Green */
+body.emerald-green-theme {
+    background-color: #50C878;
+    color: #27ae60;
+}
+
+/* Custom Background */
+body.custom-background {
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+    .container {
+        padding: 15px;
+    }
+
+    button {
+        padding: 15px;
+        font-size: 16px;
+    }
+}
